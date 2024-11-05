@@ -1,0 +1,14 @@
+{
+    "cron": [
+      {
+        "command": "php artisan schedule:run",
+        "schedule": "* * * * *"
+      }
+    ],
+    "scripts": {
+      "dokku": {
+        "predeploy": ".dokku/predeploy.sh",
+        "postdeploy": ".dokku/postdeploy.sh"
+      }
+    }
+  }
