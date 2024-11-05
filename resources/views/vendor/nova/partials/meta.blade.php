@@ -26,3 +26,9 @@ if (window.mobileCheck()) {
     });
 }
     </script>
+    <style>
+        html:not(.dark) #logo_blueday {
+    -webkit-filter: invert(100%);
+    filter: invert(70%);
+}
+</style>
