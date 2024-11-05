@@ -80,6 +80,12 @@ class Order extends Resource
                 return \App\Models\Status::first()->id;
             })->hideWhenUpdating()->hideWhenCreating(),
 
+            DateTime::make(__('Created At'), 'created_at')
+                ->sortable()
+                ->nullable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
             DateTime::make(__('Done At'), 'done_at')
                 ->sortable()
                 ->nullable()
