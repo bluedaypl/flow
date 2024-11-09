@@ -26,6 +26,16 @@ class User extends Resource
         return false;
     }
 
+    public static function label()
+    {
+        return __('Users');
+    }
+
+    public static function singularLabel()
+    {
+        return __('User');
+    }
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

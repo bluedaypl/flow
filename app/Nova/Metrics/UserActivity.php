@@ -24,7 +24,15 @@ class UserActivity extends Table
      */
     public function calculate(NovaRequest $request)
     {
-        return OrderStatus::orderBy('updated_at', 'desc')->with(['user', 'order', 'order.producer'])->limit(5)->get()->map(function ($orderStatus) {
+        $status = OrderStatus::whereHas('order', function ($query) {
+            $query->whereNull('deleted_at');
+        })
+        ->with(['user', 'order', 'order.producer'])
+        ->orderBy('updated_at', 'desc')
+        ->limit(5)
+        ->get();
+
+        return $status->map(function ($orderStatus) {
             return MetricTableRow::make()
                 ->icon('user')
                 ->iconClass('text-green-500')

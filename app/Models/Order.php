@@ -6,12 +6,14 @@ use App\Observers\OrderObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 #[ObservedBy([OrderObserver::class])]
 class Order extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'shipment_number',

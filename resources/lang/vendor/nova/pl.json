@@ -93,7 +93,7 @@
     "Select Action": "Wybierz działanie",
     "Search": "Szukaj",
     "Press / to search": "Wciśnij / aby szukać",
-    "Select all": "Wybrać wszystkie",
+    "Select all": "Wybierz wszystko",
     "Something went wrong.": "Coś poszło nie tak.",
     "The action was executed successfully.": "Akcja zakończona pomyślnie!",
     "The government won't let us show you what's behind these doors": "Rząd nie pozwala nam pokazać Ci co jest za tymi drzwiami",
@@ -381,10 +381,10 @@
     "resource": "zasób",
     "resources": "zasoby",
     "Choose date": "Wybierz datę",
-    "The :resource was created!": ":resource został stworzony!",
-    "The :resource was updated!": ":resource został zaktualizowany!",
+    "The :resource was created!": "Zasób :resource został stworzony!",
+    "The :resource was updated!": "Zasób :resource został zaktualizowany!",
     "The resource was updated!": "Zasób został zaktualizowany!",
-    "The :resource was deleted!": ":resource został usunięty!",
+    "The :resource was deleted!": "Zasób :resource został usunięty!",
     "The :resource was restored!": "Zasób został usunięty!",
     "Nova User": "Użytkownik Nova",
     "of": "z",
@@ -441,5 +441,7 @@
     "The :attribute must be at least :length characters and contain at least one uppercase character and one special character.": "Pole :attribute musi mieć co najmniej :length znaków i zawierać co najmniej jedną wielką literę i jeden znak specjalny.",
     "The :attribute must be at least :length characters and contain at least one uppercase character, one number, and one special character.": "Pole :attribute musi mieć co najmniej :length znaków i zawierać co najmniej jedną wielką literę, jedną cyfrę i jeden znak specjalny.",
     "The :attribute must be at least :length characters and contain at least one uppercase character.": "Pole :attribute musi mieć co najmniej :length znaków i co najmniej jedną wielką literę.",
-    "The :attribute must be at least :length characters.": "Pole :attribute musi mieć co najmniej :length znaków."
+    "The :attribute must be at least :length characters.": "Pole :attribute musi mieć co najmniej :length znaków.",
+    "Select this page": "Wybierz tę stronę",
+    "Soft Deleted": "Usunięte"
 }
