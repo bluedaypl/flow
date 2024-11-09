@@ -24,7 +24,6 @@ class Order extends Resource
      */
     public static $model = \App\Models\Order::class;
 
-
     public static function label()
     {
         return __('Orders');
@@ -61,7 +60,7 @@ class Order extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make()->sortable(),
+            // ID::make()->sortable(),
             Text::make(__('Shipment Number'), 'shipment_number')
                 ->sortable()
                 ->required()

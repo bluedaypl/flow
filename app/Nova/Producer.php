@@ -27,6 +27,11 @@ class Producer extends Resource
         return __('Producer');
     }
 
+    public function authorizedToReplicate(Request $request)
+    {
+        return false;
+    }
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

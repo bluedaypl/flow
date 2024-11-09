@@ -19,6 +19,12 @@ class User extends Resource
      * @var class-string<\App\Models\User>
      */
     public static $model = \App\Models\User::class;
+    public static $tableStyle = "responsive";
+
+    public function authorizedToReplicate(Request $request)
+    {
+        return false;
+    }
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -45,7 +51,7 @@ class User extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make()->sortable(),
+            // ID::make()->sortable(),
 
             Gravatar::make()->maxWidth(50),
 

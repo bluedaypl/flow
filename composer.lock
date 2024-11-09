@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "38aa0f603fee1b761e868004adf53e76",
+    "content-hash": "bf29133e8bb908c5bf2094f3bd0a2a62",
     "packages": [
         {
             "name": "blueday/order-count",
@@ -10616,8 +10616,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "blueday/order-status": 20,
-        "blueday/order-count": 20
+        "blueday/order-count": 20,
+        "blueday/order-status": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

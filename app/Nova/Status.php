@@ -19,6 +19,11 @@ class Status extends Resource
      */
     public static $model = \App\Models\Status::class;
 
+    public function authorizedToReplicate(Request $request)
+    {
+        return false;
+    }
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -55,7 +60,7 @@ class Status extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make()->sortable(),
+            // ID::make()->sortable()->hideFromIndex(),
             Text::make(__('Name'), 'name')
                 ->sortable()
                 ->required(),
