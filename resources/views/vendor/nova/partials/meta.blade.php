@@ -24,11 +24,70 @@ if (window.mobileCheck()) {
             scannedCode = '';
         }, 200); // 200 ms - dopasuj do swojego skanera
     });
+
+
+
+    var showInstallButton = function(deferredPrompt) {
+        console.log('try to show install button');
+        if (window.matchMedia('(display-mode: standalone)').matches) { 
+            return false;
+        }
+
+        window.addEventListener("load", (event) => {
+        document.querySelector('div[dusk=dashboard-main]').insertAdjacentHTML("beforebegin", '<div class="text-center"><button class="flex-shrink-0 shadow rounded focus:outline-none ring-primary-200 dark:ring-gray-600 focus:ring bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white dark:text-gray-800 inline-flex items-center font-bold px-4 h-9 text-sm flex-shrink-0" id="installButton">Zainstaluj jako aplikację</button></div>');
+        setTimeout(() => {
+            const installButton = document.getElementById('installButton');
+            installButton.addEventListener('click', async () => {
+                console.log(deferredPrompt);
+                if (deferredPrompt) {
+                    deferredPrompt.prompt(); // Wyświetlenie prompta
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        console.log('Użytkownik zaakceptował instalację');
+                    } else {
+                        console.log('Użytkownik odrzucił instalację');
+                    }
+                    deferredPrompt = null; // Resetowanie prompta po zakończeniu
+                    installButton.style.display = 'none'; // Ukrycie przycisku po instalacji
+                }
+            });
+        }, 100);
+        });
+    }
+
+
+
+
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        console.log('Prompt został zablokowany');
+            e.preventDefault(); // Zapobiegamy automatycznemu wyświetleniu prompta
+
+            showInstallButton(e);
+        });
+
+    window.addEventListener('appinstalled', () => {
+            console.log('Aplikacja została zainstalowana');
+            installButton.style.display = 'none';
+        });
+
+
 }
+
+
+
+
+
+
     </script>
     <style>
         html:not(.dark) #logo_blueday {
     -webkit-filter: invert(100%);
     filter: invert(70%);
 }
+
+
+
+
+
 </style>

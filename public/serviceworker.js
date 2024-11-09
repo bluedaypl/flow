@@ -1,7 +1,7 @@
 var staticCacheName = "pwa-v" + new Date().getTime();
 var filesToCache = [
     '/images/icons/android-chrome-512x512.png',
-    '/images/icons/android-chrome-512x512.png',
+    '/images/icons/android-chrome-192x192.png',
     '/images/icons/splash-640x1136.png',
     '/images/icons/splash-750x1334.png',
     // '/images/icons/splash-1242x2208.png',
