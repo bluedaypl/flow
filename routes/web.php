@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NovaResourceRedirectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,5 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['nova'])->get('/order/scanner', 'App\Http\Controllers\OrderController@scanner')->name('order.scanner');
+
+Route::get('/nova-redirect/resources/{resource}/{id?}', NovaResourceRedirectController::class)->name('nova.resource');

@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function route()
+    {
+        return route('nova.resource', ['resource' => 'users', 'id' => $this->id]);
+    }
 }

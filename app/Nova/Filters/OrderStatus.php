@@ -30,6 +30,9 @@ class OrderStatus extends Filter
      */
     public function apply(NovaRequest $request, $query, $value)
     {
+        if($value == 'Zakończono') {
+            return $query->whereNotNull('done_at');
+        }
         return $query->where('status_id', Status::where('name', $value)->first()->id);
     }
 
@@ -41,6 +44,9 @@ class OrderStatus extends Filter
      */
     public function options(NovaRequest $request)
     {
-        return Status::all()->pluck('name', 'id')->toArray();
+        return 
+        Status::all()->pluck('name', 'id')
+        ->add('Zakończono', 'close')
+        ->toArray();
     }
 }

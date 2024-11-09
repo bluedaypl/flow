@@ -93,4 +93,9 @@ class Order extends Model
         $this->done_at = now();
         $this->save();
     }
+
+    public function route()
+    {
+        return route('nova.resource', ['resource' => 'orders', 'id' => $this->id]);
+    }
 }

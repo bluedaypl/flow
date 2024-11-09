@@ -4,12 +4,20 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class OrderStatus extends Resource
 {
+    /**
+     * Indicates if the resource should be globally searchable.
+     *
+     * @var bool
+     */
+    public static $globallySearchable = false;
+
     /**
      * The model the resource corresponds to.
      *
@@ -22,7 +30,7 @@ class OrderStatus extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'status.name';
 
     /**
      * The columns that should be searched.
@@ -54,8 +62,7 @@ class OrderStatus extends Resource
             DateTime::make(__('Ended At'), 'ended_at')->sortable(),
             Text::make(__('In Status'))->resolveUsing(function () {
                 return $this->diff();
-            }),
-
+            })
         ];
     }
 

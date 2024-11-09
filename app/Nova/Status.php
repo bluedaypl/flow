@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -57,7 +58,7 @@ class Status extends Resource
             ID::make()->sortable(),
             Text::make(__('Name'), 'name')
                 ->sortable()
-                ->required()
+                ->required(),
         ];
     }
 
@@ -104,4 +105,5 @@ class Status extends Resource
     {
         return [];
     }
+    
 }

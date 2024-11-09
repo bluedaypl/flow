@@ -40,7 +40,7 @@ class Order extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'shipment_number';
 
     /**
      * The columns that should be searched.
