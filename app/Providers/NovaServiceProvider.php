@@ -24,6 +24,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         parent::boot();
 
 
+
         Nova::footer(function ($request) {
             return Blade::render('<p class="text-center">Powered by <a class="link-default" href="https://blueday.pl" target="_blank">BlueDay.pl</a> · v1.0.0</p>');
         });
@@ -32,6 +33,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Nova::mainMenu(function (Request $request) {
             return [
                 MenuSection::dashboard(DashboardsMain::class)->icon('chart-bar'),
+
                 MenuSection::make(__('Delivery'), [
                     MenuItem::resource(\App\Nova\Order::class),
                     MenuItem::resource(\App\Nova\Producer::class),

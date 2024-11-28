@@ -4,8 +4,44 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf29133e8bb908c5bf2094f3bd0a2a62",
+    "content-hash": "0e542a352b66110fa7688d0ad829f54c",
     "packages": [
+        {
+            "name": "blueday/assignorders",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/Assignorders",
+                "reference": "e17d293fffc1ffde726850166c9251f3d0f36807"
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Blueday\\Assignorders\\CardServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Blueday\\Assignorders\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova card.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
         {
             "name": "blueday/order-count",
             "version": "dev-main",
@@ -10624,6 +10660,6 @@
     "platform": {
         "php": "^8.1"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

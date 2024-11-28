@@ -81,25 +81,36 @@ class OrderStatus extends Model
         return true;
     }
 
+    // /**
+    //  * Move the order status to the next status
+    //  *
+    //  * @return void
+    //  */
+    // public function setNext() {
+    //     $nextStatus = Status::where('order', '>', $this->status->order)->first();
+    //     if(!$nextStatus) {
+    //         $this->makeDone();
+    //         return true;
+    //     }
+    //     return $this->order->setStatus($nextStatus);
+    // }
+
     /**
      * Move the order status to the next status
      *
-     * @return void
+     *
      */
-    public function setNext() {
-        $nextStatus = Status::where('order', '>', $this->status->order)->first();
-        if(!$nextStatus) {
-            $this->makeDone();
-            return true;
-        }
-        return $this->order->setStatus($nextStatus);
-    }
-
-    public function setPrevious() {
+    public function setPrevious(): bool {
         if($this->order->status->order == Status::max('order') && $this->ended_at !== null) {
             $this->order->setStatus($this->status);
-        } else {
-            $this->order->setStatus($this->status->previous());
+            return true;
         }
+
+        $previous = $this->status->previous();
+        if(!$previous) {
+            return false;
+        }
+        $this->order->setStatus($previous);
+        return true;
     }
 }

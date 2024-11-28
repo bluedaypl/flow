@@ -5,6 +5,7 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Select;
@@ -88,6 +89,9 @@ class User extends Resource
                 ->default('user')
                 ->displayUsingLabels()
                 ->rules('required'),
+
+            HasMany::make(__('Orders'), 'orders', Order::class),
+
         ];
     }
 

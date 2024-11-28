@@ -23,5 +23,14 @@
     "Created At": "Utworzono",
     "Last User Activity": "Ostatnia aktywność",
     "Done Order": "Zakończone zamówienia",
-    "Select this page": "Wybierz tę stronę"
+    "Select this page": "Wybierz tę stronę",
+    "Priority": "Priorytet",
+    "Low": "Niski",
+    "Normal": "Normalny",
+    "High": "Wysoki",
+    "Assign User": "Pracownik",
+    "Your Orders" : "Twoje zamówienia",
+    "Suspended": "Zawieszone",
+    "Mark all as Read": "Oznacz wszystkie jako przeczytane",
+    "Last updated": "Ostatnia aktualizacja"
 }

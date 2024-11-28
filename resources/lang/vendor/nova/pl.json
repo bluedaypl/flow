@@ -7,6 +7,7 @@
     ":days day trial": ":days dzień próbny",
     ":resource Details: :title": "Szczegóły :resource: :title",
     "Month To Date": "W tym miesiącu",
+    ":amount selected": ":amount wybranych",
     "Monthly": "Miesięczny",
     "monthly": "miesięczny",
     "Actions": "Działania",
@@ -443,5 +444,8 @@
     "The :attribute must be at least :length characters and contain at least one uppercase character.": "Pole :attribute musi mieć co najmniej :length znaków i co najmniej jedną wielką literę.",
     "The :attribute must be at least :length characters.": "Pole :attribute musi mieć co najmniej :length znaków.",
     "Select this page": "Wybierz tę stronę",
-    "Soft Deleted": "Usunięte"
+    "Soft Deleted": "Usunięte",
+    "Notifications": "Powiadomienia",
+    "Mark all as Read": "Oznacz wszystkie jako przeczyt.",
+    "Are you sure you want to delete this notification?": "Czy na pewno chcesz usunąć to powiadomienie?"
 }

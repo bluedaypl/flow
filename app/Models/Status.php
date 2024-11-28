@@ -61,4 +61,12 @@ class Status extends Model implements Sortable
         return self::where('order', '<', $this->order)->orderBy('order', 'desc')->first();
     }
 
+    /**
+     * Order the statuses by the order column
+     */
+    public function scopeOrderByFirst($query)
+    {
+        return $query->orderBy('order', 'asc')->first();
+    }
+
 }

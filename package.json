@@ -9,7 +9,9 @@
         "build-order-status": "cd nova-components/OrderStatus && npm run dev",
         "build-order-status-prod": "cd nova-components/OrderStatus && npm run prod",
         "build-order-count": "cd nova-components/OrderCount && npm run dev",
-        "build-order-count-prod": "cd nova-components/OrderCount && npm run prod"
+        "build-order-count-prod": "cd nova-components/OrderCount && npm run prod",
+        "build-assignorders": "cd nova-components/Assignorders && npm run dev",
+        "build-assignorders-prod": "cd nova-components/Assignorders && npm run prod"
     },
     "devDependencies": {
         "axios": "^1.6.4",

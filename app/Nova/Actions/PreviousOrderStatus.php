@@ -2,9 +2,7 @@
 
 namespace App\Nova\Actions;
 
-use App\Models\OrderStatus;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
@@ -17,7 +15,6 @@ class PreviousOrderStatus extends Action
 
     public $name = 'Wróć do poprzedniego statusu';
 
-
     /**
      * Perform the action on the given models.
      *
@@ -29,7 +26,10 @@ class PreviousOrderStatus extends Action
     {
         foreach ($models as $model) {
             $latestStatus = $model->latestStatus();
-            $latestStatus->setPrevious();
+            $set = $latestStatus->setPrevious();
+            if(!$set) {
+                return Action::danger('Nie można wrócić do poprzedniego statusu');
+            }
         }
     }
 

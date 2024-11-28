@@ -56,7 +56,7 @@ export default {
       Nova.request().get('/nova-vendor/order-status/status/'+this.resourceId).then(response => {
         this.status = response.data;
         var status = document.querySelector('div[dusk="status"] a');
-        
+
 
         if(status) {
           status.href = '/resources/statuses/'+this.status.order.status.id;
@@ -80,6 +80,11 @@ export default {
       var self = this;
       this.loading = true;
       Nova.request().post('/nova-vendor/order-status/next-status/'+this.resourceId).then(response => {
+        if(response.data.error) {
+        Nova.error(response.data.error);
+          self.loading = false;
+          return;
+        }
         // console.log(response);
         // if(response.data.ended_at != null) {
         //   return Nova.visit(`/resources/${this.resourceName}/${this.resourceId}`);
