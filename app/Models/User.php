@@ -53,4 +53,16 @@ class User extends Authenticatable
     {
         return route('nova.resource', ['resource' => 'users', 'id' => $this->id]);
     }
+
+    public function gender(): string
+    {
+        $ex = explode(' ', $this->name);
+        return substr($ex[0], -1) === 'a' ? 'F' : 'M';
+    }
+
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'assign_user_id');
+    }
 }

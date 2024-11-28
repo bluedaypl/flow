@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "blueday/assignorders": "^1.0",
         "blueday/order-count": "dev-main",
         "blueday/order-status": "dev-main",
         "coderello/laravel-nova-lang": "^2.0",
@@ -90,6 +91,10 @@
         "2": {
             "type": "path",
             "url": "./nova-components/OrderCount"
+        },
+        "3": {
+            "type": "path",
+            "url": "./nova-components/Assignorders"
         }
     }
 }

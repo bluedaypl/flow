@@ -19,6 +19,8 @@ class Order extends Model
         'shipment_number',
         'producer_id',
         'status_id',
+        'assign_user_id',
+        'suspended',
         'done_at'
     ];
 
@@ -55,8 +57,12 @@ class Order extends Model
     {
         return $this->statuses()->latest()->with('status')->first();
     }
-    
-    
+
+    public function assignUser()
+    {
+        return $this->belongsTo(User::class, 'assign_user_id');
+    }
+
     /**
      * Get the status of the order
      *
@@ -76,7 +82,7 @@ class Order extends Model
     public function setStatus(Status $status)
     {
         $latestStatus = $this->latestStatus();
-        if ($latestStatus) 
+        if ($latestStatus)
             $latestStatus->makeDone();
 
         $this->statuses()->create([
@@ -84,6 +90,12 @@ class Order extends Model
         ]);
 
         return $status;
+    }
+
+    public function nextStatus()
+    {
+        $latestStatus = $this->latestStatus();
+        return $latestStatus ? $latestStatus->status->next() : Status::orderByFirst()->first();
     }
 
     /**
@@ -100,4 +112,5 @@ class Order extends Model
     {
         return route('nova.resource', ['resource' => 'orders', 'id' => $this->id]);
     }
+
 }

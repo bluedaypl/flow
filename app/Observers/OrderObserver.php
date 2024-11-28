@@ -5,13 +5,16 @@ namespace App\Observers;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Status;
+use Laravel\Nova\Notifications\NovaNotification;
+use Laravel\Nova\Nova;
+use Laravel\Nova\URL;
 
 class OrderObserver
 {
 
     public function creating(Order $order): void
     {
-        $order->status_id = Status::first()->id;
+        $order->status_id = $order->suspended ? null : Status::first()->id;
     }
 
     /**
@@ -19,12 +22,27 @@ class OrderObserver
      */
     public function created(Order $order): void
     {
-        OrderStatus::create([
-            'order_id' => $order->id,
-            'status_id' => $order->status_id,
-            'started_at' => now(),
-            'user_id' => auth()->id() ?? 1,
-        ]);
+        if(!$order->suspended)
+        {
+            OrderStatus::create([
+                'order_id' => $order->id,
+                'status_id' => $order->status_id,
+                'started_at' => now(),
+                'user_id' => auth()->id() ?? 1,
+            ]);
+        }
+
+        // Notifiy
+        if($order->assignUser) {
+            $order->assignUser->notify(NovaNotification::make()
+            ->message(sprintf('Zamówienie #%d (%s) zostało przydzielone do Ciebie',
+                $order->id,
+                $order->producer->name))
+            ->action('Zobacz', Nova::url('/resources/orders/'.$order->id))
+            ->icon('truck')
+            ->type('info'));
+        }
+
     }
 
     /**

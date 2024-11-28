@@ -12,7 +12,7 @@ class DoneOrder extends Progress
     {
         return __('Done Order');
     }
-    
+
     /**
      * Calculate the value of the metric.
      *
@@ -21,9 +21,9 @@ class DoneOrder extends Progress
      */
     public function calculate(NovaRequest $request)
     {
-        $target = Order::count();
+        $target = Order::where('suspended', false)->count();
         return $this->count($request, Order::class, function ($query) {
-            return $query->whereNotNull('done_at');
+            return $query->whereNotNull('done_at')->where('suspended', false);
         }, target: $target==0 ? 1 : $target);
     }
 

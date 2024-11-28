@@ -36,7 +36,12 @@ class UserActivity extends Table
             return MetricTableRow::make()
                 ->icon('user')
                 ->iconClass('text-green-500')
-                ->title(sprintf('%s zmienił status zamówienia %s (Producent: %s) na %s', $orderStatus->user->name, $orderStatus->order->shipment_number, $orderStatus->order->producer->name, $orderStatus->status->name))
+                ->title(sprintf('%s %s status zamówienia %s (Producent: %s) na %s',
+                    $orderStatus->user->name,
+                    $orderStatus->user->gender() === 'F' ? 'zmieniła' : 'zmienił',
+                    $orderStatus->order->shipment_number,
+                    $orderStatus->order->producer->name,
+                    $orderStatus->status->name))
                 ->subtitle($orderStatus->updated_at->diffForHumans())
                 ->actions(function () use ($orderStatus) {
                     return [

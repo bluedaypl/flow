@@ -13,7 +13,14 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Blueday\OrderStatus\OrderStatus as OrderStatusTool;
 use App\Nova\Filters\OrderStatus as OrderStatusFilter;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Panel;
+use App\Nova\Lenses\AssignedOrders;
+use App\Nova\Lenses\AssignOrders;
+use App\Nova\Metrics\AssignOrder;
+use App\Nova\Metrics\AssignOrderCount;
+use Blueday\Assignorders\Assignorders as AssignordersAssignorders;
+use Laravel\Nova\Fields\Boolean;
 
 class Order extends Resource
 {
@@ -34,12 +41,19 @@ class Order extends Resource
         return __('Order');
     }
 
+    // public static $clickAction = 'edit';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public static $title = 'shipment_number';
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->orderByRaw('CASE WHEN done_at IS NULL THEN 0 ELSE 1 END,priority DESC,done_at ASC');
+    }
 
     /**
      * The columns that should be searched.
@@ -48,7 +62,8 @@ class Order extends Resource
      */
     public static $search = [
         'id',
-        'shipment_number'
+        'shipment_number',
+        'producer.name'
     ];
 
     /**
@@ -60,7 +75,23 @@ class Order extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-            // ID::make()->sortable(),
+            Badge::make(__('Priority'), 'priority')
+                ->map([
+                    0 => 'info',
+                    1 => 'success',
+                    2 => 'danger',
+                ])
+                ->label(function ($value) {
+                    return [
+                        0 => __('Low'),
+                        1 => __('Normal'),
+                        2 => __('High'),
+                    ][$value];
+                })
+                ->sortable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
             Text::make(__('Shipment Number'), 'shipment_number')
                 ->sortable()
                 ->required()
@@ -68,10 +99,29 @@ class Order extends Resource
                     return $request->cookie('order_shipment_number', '');
                 })
                 ->creationRules('unique:orders,shipment_number')
-                ->updateRules('unique:orders,shipment_number'),
+                ->updateRules('unique:orders,shipment_number,{{resourceId}}'),
+
+
             BelongsTo::make(__('Producer'), 'producer', Producer::class)
                 ->sortable()
                 ->required(),
+
+
+            $request->user()->isAdmin()
+            ? BelongsTo::make(__('Assign User'), 'assignUser', User::class)->sortable()->nullable()
+            : BelongsTo::make(__('Assign User'), 'assignUser', User::class)->sortable()->hideWhenCreating()->hideWhenUpdating(),
+
+            Select::make(__('Priority'), 'priority')
+                ->options([
+                    0 => __('Low'),
+                    1 => __('Normal'),
+                    2 => __('High'),
+                ])
+                ->default(1)
+                ->displayUsingLabels()
+                ->sortable()
+                ->required()
+                ->onlyOnForms(),
 
             BelongsTo::make(__('Status'), 'status', Status::class)
             ->sortable()
@@ -90,11 +140,18 @@ class Order extends Resource
                 ->nullable()
                 ->hideWhenCreating()
                 ->hideWhenUpdating(),
-
             OrderStatusTool::make(),
 
-            HasMany::make(__('Statuses'), 'statuses', OrderStatus::class),
+            Boolean::make(__('Suspended'), 'suspended')
+                ->sortable()
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->hideWhenUpdating()
+                ->help('Zamówienie jest tworzone, ale nie jest rozpoczonany proces realizacji.')->canSee(function ($request) {
+                    return $request->user()->isAdmin();
+                }),
 
+            HasMany::make(__('Statuses'), 'statuses', OrderStatus::class),
 
             // Text::make('Status')->resolveUsing(function () {
             //     return $this->latestStatus()->status->name ?? '-';
@@ -102,6 +159,17 @@ class Order extends Resource
 
 
             // BelongsTo::make(__('Statuses'), 'statuses', Status::class)
+        ];
+    }
+
+
+    public function assignFields(NovaRequest $request)
+    {
+        return [
+            BelongsTo::make(__('Assign User'), 'assignUser', User::class)->sortable()->nullable()
+                ->canSee(function ($request) {
+                    return $request->user()->isAdmin();
+                }),
         ];
     }
 
@@ -118,7 +186,11 @@ class Order extends Resource
      */
     public function cards(NovaRequest $request)
     {
-        return [];
+        return [
+            new AssignordersAssignorders
+            // AssignOrder::make()->width('full')
+            // AssignOrderCount::make()->width('1/2'),
+        ];
     }
 
     /**
@@ -142,7 +214,9 @@ class Order extends Resource
      */
     public function lenses(NovaRequest $request)
     {
-        return [];
+        return [
+            new AssignOrders,
+        ];
     }
 
     /**
@@ -157,4 +231,5 @@ class Order extends Resource
             PreviousOrderStatus::make()
         ];
     }
+
 }
