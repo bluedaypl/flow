@@ -104,7 +104,7 @@ class Order extends Resource
 
             BelongsTo::make(__('Producer'), 'producer', Producer::class)
                 ->sortable()
-                // ->searchable()
+                ->searchable()
                 ->required(),
 
 
