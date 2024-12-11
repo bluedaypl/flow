@@ -7,7 +7,7 @@
   </button> -->
 
 
-  <LoadingButton
+  <DefaultButton
           v-if="status.next"
           dusk="order-status-next-button"
           type="button"
@@ -15,9 +15,9 @@
           :loading="loading"
         >
         Rozpocznij: {{ status.next.name }}
-</LoadingButton>
+</DefaultButton>
 
-  <LoadingButton
+  <DefaultButton
           v-if="!status.next && status.order && status.order.ended_at == null"
           dusk="order-status-close-button"
           type="button"
@@ -25,7 +25,7 @@
           :loading="loading"
         >
         Zakończ: {{ status.order.status.name }}
-  </LoadingButton>
+  </DefaultButton>
 
 
 
